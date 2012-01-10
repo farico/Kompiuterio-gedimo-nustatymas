@@ -1,0 +1,22 @@
+deny from 84.194.49.15
+deny from 74.63.93.172
+
+#removing this from .htaccess, should be added in VirtualHost directive
+#php_value auto_prepend_file "/var/www/ven_dev/prepend.php"
+php_flag session.use_cookies 1
+
+#AuthUserFile /var/www/vennezia/.htpasswd
+#AuthGroupFile /dev/null
+#AuthName "Beta closed, setting up real version"
+#AuthType Basic
+#<Limit GET POST>
+#require valid-user
+#</Limit>
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} !^/cf
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
